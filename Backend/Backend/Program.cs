@@ -8,37 +8,37 @@ using ExamenBackend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuración de servicios
+// ConfiguraciÃ³n de servicios
 builder.Services.AddControllers();
 
-// Configuración de Swagger para documentación de la API
+// ConfiguraciÃ³n de Swagger para documentaciÃ³n de la API
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "API Gestor Productos", Version = "v1" });
 });
 
-// Configuración de CORS para permitir solicitudes desde el frontend
+// ConfiguraciÃ³n de CORS para permitir solicitudes desde el frontend
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        var frontendUrl = "http://localhost:4200"; // URL del frontend, ajustar según sea necesario
+        var frontendUrl = "FRONTEND_URL"; // URL del frontend, ajustar segÃºn sea necesario
         if (!string.IsNullOrEmpty(frontendUrl))
         {
             policy.WithOrigins(frontendUrl)   // Permite solicitudes solo desde la URL del frontend
-                  .AllowAnyMethod()          // Permite cualquier método HTTP
+                  .AllowAnyMethod()          // Permite cualquier mÃ©todo HTTP
                   .AllowAnyHeader()          // Permite cualquier encabezado
                   .AllowCredentials();       // Permite credenciales (si es necesario)
         }
         else
         {
-            throw new InvalidOperationException("La variable de entorno 'FRONTEND_URL' no está definida. No se puede configurar CORS.");
+            throw new InvalidOperationException("La variable de entorno 'FRONTEND_URL' no estÃ¡ definida. No se puede configurar CORS.");
         }
     });
 });
 
-// Configuración de DbContext para SQL Server
+// ConfiguraciÃ³n de DbContext para SQL Server
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
@@ -49,7 +49,7 @@ builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 
 var app = builder.Build();
 
-// Configuración del pipeline HTTP
+// ConfiguraciÃ³n del pipeline HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -60,13 +60,13 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// Habilitar CORS con la política configurada
+// Habilitar CORS con la polÃ­tica configurada
 app.UseCors("AllowFrontend");
 
-app.UseAuthorization(); // Usar autorización para los controladores
+app.UseAuthorization(); // Usar autorizaciÃ³n para los controladores
 
 // Mapeo de controladores para la API
 app.MapControllers();
 
-// Iniciar la aplicación
+// Iniciar la aplicaciÃ³n
 app.Run();
