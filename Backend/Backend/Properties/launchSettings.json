@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "iisSettings": {
     "windowsAuthentication": false,
@@ -11,7 +11,7 @@
   "profiles": {
     "Frontend": {
       "commandName": "Project",
-      "applicationUrl": "http://localhost:4200", // Puerto donde se ejecutará Angular
+      "applicationUrl": "http://localhost:5032", // URL del backend
       "environmentVariables": {
         "FRONTEND_URL": "http://localhost:4200" // URL del frontend
       }
